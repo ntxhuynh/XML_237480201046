@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Đọc dữ liệu XML</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Danh sách đĩa CD từ XML</h2>
+<table id="demo"></table>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var cds = xmlDoc.getElementsByTagName("cd");
+        var table = "<tr><th>Title</th><th>Artist</th></tr>";
+
+        for (var i = 0; i < cds.length; i++) {
+            table += "<tr><td>" +
+                cds[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                cds[i].getElementsByTagName("artist")[0].childNodes[0].nodeValue +
+                "</td></tr>";
+        }
+
+        document.getElementById("demo").innerHTML = table;
+    };
+    xhttp.open("GET", "cd_catalog.xml");
+    xhttp.send();
+</script>
+
+</body>
+</html>
