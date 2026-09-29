@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var dsNV = xmlDoc.getElementsByTagName("nhanvien");
+        
+        for (var i = 0; i < dsNV.length; i++) {
+            var manv = dsNV[i].getElementsByTagName("manv")[0].childNodes[0].nodeValue;
+            if (manv === "002") {
+                var hoten = dsNV[i].getElementsByTagName("hoten")[0].childNodes[0].nodeValue;
+                document.getElementById("demo").innerHTML = "Họ tên NV (002): " + hoten;
+                break;
+            }
+        }
+    };
+    xhttp.open("GET", "danhsachnhanvien.xml");
+    xhttp.send();
+</script>
+
+</body>
+</html>
