@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách nhân viên</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+    th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+    th { background: #f0f0f0; }
+    input { padding: 6px; width: 260px; }
+  </style>
+</head>
+<body>
+  <h2>Danh sách nhân viên</h2>
+  <input type="text" id="timDonVi" placeholder="Nhập tên đơn vị, ví dụ: Hành chính">
+
+  <table>
+    <thead>
+      <tr><th>Mã NV</th><th>Họ tên</th><th>Đơn vị</th><th>Lương</th></tr>
+    </thead>
+    <tbody id="bang"></tbody>
+  </table>
+
+  <script>
+    var xmlDoc = null;
+
+    function layText(nv, tag) {
+      var el = nv.getElementsByTagName(tag)[0];
+      return el && el.childNodes[0] ? el.childNodes[0].nodeValue : "";
+    }
+
+    function hienThi(tuKhoa) {
+      var tbody = document.getElementById("bang");
+      tbody.innerHTML = "";
+      var ds = xmlDoc.getElementsByTagName("nhanvien");
+      var kw = tuKhoa.trim().toLowerCase();
+
+      for (var i = 0; i < ds.length; i++) {
+        var donvi = layText(ds[i], "donvi");
+        if (kw !== "" && !donvi.toLowerCase().includes(kw)) continue;
+
+        var tr = document.createElement("tr");
+        ["manv", "hoten", "donvi", "luong"].forEach(function (tag) {
+          var td = document.createElement("td");
+          td.textContent = layText(ds[i], tag);
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      }
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        xmlDoc = this.responseXML;
+        hienThi("");
+    };
+    xhr.open("GET", "danhsachnhanvien.xml");
+    xhr.send();
+
+    document.getElementById("timDonVi").addEventListener("input", function () {
+      if (xmlDoc) hienThi(this.value);
+    });
+  </script>
+</body>
+</html>
