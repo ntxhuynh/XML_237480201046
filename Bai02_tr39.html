@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Danh sách các đơn vị</h2>
+<ul id="demo"></ul>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var dsDonVi = xmlDoc.getElementsByTagName("donvi");
+        var listHtml = "";
+
+        for (var i = 0; i < dsDonVi.length; i++) {
+            var tenDonVi = dsDonVi[i].childNodes[0].nodeValue;
+            listHtml += "<li>" + tenDonVi + "</li>";
+        }
+
+        document.getElementById("demo").innerHTML = listHtml;
+    };
+    xhttp.open("GET", "danhsachnhanvien.xml");
+    xhttp.send();
+</script>
+
+</body>
+</html>

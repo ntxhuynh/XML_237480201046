@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách môn học</title>
+</head>
+<body>
+
+    <h2>DANH SÁCH MÔN HỌC</h2>
+    <div id="result"></div>
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var xmlDoc = xhr.responseXML;
+                var subjects = xmlDoc.getElementsByTagName("subject");
+                
+                var output = `
+                    <table border="1" style="border-collapse: collapse;">
+                        <tr>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">STT</th>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">Tên môn học</th>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">Nhà xuất bản</th>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">Tác giả</th>
+                        </tr>
+                `;
+
+                for (var i = 0; i < subjects.length; i++) {
+                    var title = subjects[i].getElementsByTagName("title")[0].firstChild.nodeValue;
+                    var publisher = subjects[i].getElementsByTagName("publisher")[0].firstChild.nodeValue;
+                    var author = subjects[i].getElementsByTagName("author")[0].firstChild.nodeValue;
+
+                    output += `
+                        <tr>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${i + 1}</td>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${title.trim()}</td>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${publisher.trim()}</td>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${author.trim()}</td>
+                        </tr>
+                    `;
+                }
+
+                output += `</table>`;
+                document.getElementById("result").innerHTML = output;
+            }
+        };
+
+        xhr.open("GET", "dsmonhoc.xml", true);
+        xhr.send();
+    </script>
+
+</body>
+</html>

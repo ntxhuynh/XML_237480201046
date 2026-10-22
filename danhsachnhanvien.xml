@@ -1,0 +1,20 @@
+<danhsach>
+  <nhanvien>
+    <manv>001</manv>
+    <hoten>Nguyễn Thị Hồng</hoten>
+    <donvi>Kỹ thuật</donvi>
+    <luong>10000000</luong>
+  </nhanvien>
+  <nhanvien>
+    <manv>002</manv>
+    <hoten>Trần Thị Thuý</hoten>
+    <donvi>Hành chính</donvi>
+    <luong>8000000</luong>
+  </nhanvien>
+  <nhanvien>
+    <manv>003</manv>
+    <hoten>Lý Huỳnh My</hoten>
+    <donvi>Marketing</donvi>
+    <luong>8000000</luong>
+  </nhanvien>
+</danhsach>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Đọc dữ liệu XML</title>
+</head>
+<body>
+
+<h2>Danh sách tiêu đề sách từ XML</h2>
+<table id="demo"></table>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var titles = xmlDoc.getElementsByTagName("title");
+        var table = "<tr><th>STT</th><th>Title</th></tr>";
+
+        for (var i = 0; i < titles.length; i++) {
+            table += "<tr><td>" + (i + 1) + "</td><td>" +
+                titles[i].childNodes[0].nodeValue +
+                "</td></tr>";
+        }
+
+        document.getElementById("demo").innerHTML = table;
+    };
+    xhttp.open("GET", "books.xml");
+    xhttp.send();
+</script>
+
+</body>
+</html>

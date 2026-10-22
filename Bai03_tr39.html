@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Tổng lương tất cả nhân viên</h2>
+<p id="demo"></p>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var dsLuong = xmlDoc.getElementsByTagName("luong");
+        var tongLuong = 0;
+
+        for (var i = 0; i < dsLuong.length; i++) {
+            var luong = parseFloat(dsLuong[i].childNodes[0].nodeValue);
+            tongLuong += luong;
+        }
+
+        document.getElementById("demo").innerHTML = 
+            "Tổng lương: <strong>" + tongLuong.toLocaleString("vi-VN") + " VNĐ</strong>";
+    };
+    xhttp.open("GET", "danhsachnhanvien.xml");
+    xhttp.send();
+</script>
+
+</body>
+</html>

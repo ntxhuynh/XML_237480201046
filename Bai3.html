@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var book = xmlDoc.getElementsByTagName("book")[0];
+        
+        var first = book.firstElementChild;
+        var last = book.lastElementChild;
+        
+        document.getElementById("demo").innerHTML = 
+            "Đầu: " + first.textContent + "<br>" +
+            "Cuối: " + last.textContent;
+    };
+    xhttp.open("GET", "books.xml");
+    xhttp.send();
+</script>
+</body>
+</html>

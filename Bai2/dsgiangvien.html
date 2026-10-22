@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách giảng viên</title>
+</head>
+<body>
+
+    <h2>DANH SÁCH GIẢNG VIÊN</h2>
+    <div id="result"></div>
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var xmlDoc = xhr.responseXML;
+                var names = xmlDoc.getElementsByTagName("giangvien");
+                
+                var output = `
+                    <table border="1" style="border-collapse: collapse;">
+                        <tr>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">STT</th>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">Họ và tên</th>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">Ngành</th>
+                            <th style="border: 1px solid black; padding: 6px 12px; text-align: left;">Đơn vị</th>
+                        </tr>
+                `;
+
+                for (var i = 0; i < names.length; i++) {
+                    var hoten = names[i].getElementsByTagName("hoten")[0].firstChild.nodeValue;
+                    var nganh = names[i].getElementsByTagName("nganh")[0].firstChild.nodeValue;
+                    var donvi = names[i].getElementsByTagName("donvi")[0].firstChild.nodeValue;
+
+                    output += `
+                        <tr>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${i + 1}</td>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${hoten.trim()}</td>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${nganh.trim()}</td>
+                            <td style="border: 1px solid black; padding: 6px 12px; text-align: left;">${donvi.trim()}</td>
+                        </tr>
+                    `;
+                }
+
+                output += `</table>`;
+                document.getElementById("result").innerHTML = output;
+            }
+        };
+
+        xhr.open("GET", "hosogiangvien.xml", true);
+        xhr.send();
+    </script>
+
+</body>
+</html>

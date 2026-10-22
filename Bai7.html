@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+    var text = "<bookstore><book><title>Sach A</title><price>25.00</price></book></bookstore>";
+    var xmlDoc = new DOMParser().parseFromString(text, "text/xml");
+
+    var newBook = xmlDoc.createElement("book");
+    var newTitle = xmlDoc.createElement("title");
+    var newPrice = xmlDoc.createElement("price");
+
+    newTitle.appendChild(xmlDoc.createTextNode("Lap trinh JavaScript"));
+    newPrice.appendChild(xmlDoc.createTextNode("45.50"));
+
+    newBook.appendChild(newTitle);
+    newBook.appendChild(newPrice);
+
+    xmlDoc.documentElement.appendChild(newBook);
+
+    document.getElementById("demo").textContent = new XMLSerializer().serializeToString(xmlDoc);
+</script>
+</body>
+</html>

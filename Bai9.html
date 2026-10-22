@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var dsNV = xmlDoc.getElementsByTagName("nhanvien");
+
+        for (var i = 0; i < dsNV.length; i++) {
+            var donvi = dsNV[i].getElementsByTagName("donvi")[0].childNodes[0].nodeValue;
+            if (donvi === "Kỹ thuật") {
+                var luongNode = dsNV[i].getElementsByTagName("luong")[0].childNodes[0];
+                luongNode.nodeValue = Math.round(parseFloat(luongNode.nodeValue) * 1.1);
+            }
+        }
+        document.getElementById("demo").textContent = new XMLSerializer().serializeToString(xmlDoc);
+    };
+    xhttp.open("GET", "danhsachnhanvien.xml");
+    xhttp.send();
+</script>
+</body>
+</html>

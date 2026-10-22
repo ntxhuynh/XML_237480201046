@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var goc = xmlDoc.documentElement;
+        var dsNV = xmlDoc.getElementsByTagName("nhanvien");
+
+        for (var i = 0; i < dsNV.length; i++) {
+            var manv = dsNV[i].getElementsByTagName("manv")[0].childNodes[0].nodeValue;
+            if (manv === "001") {
+                goc.removeChild(dsNV[i]);
+                break;
+            }
+        }
+        document.getElementById("demo").textContent = new XMLSerializer().serializeToString(xmlDoc);
+    };
+    xhttp.open("GET", "danhsachnhanvien.xml");
+    xhttp.send();
+</script>
+</body>
+</html>

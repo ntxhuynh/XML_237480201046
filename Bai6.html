@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        var xmlDoc = this.responseXML;
+        var dsManv = xmlDoc.getElementsByTagName("manv");
+        
+        for (var i = 0; i < dsManv.length; i++) {
+            if (dsManv[i].childNodes[0].nodeValue === "002") {
+                var nhanvien = dsManv[i].parentNode;
+                var donvi = nhanvien.getElementsByTagName("donvi")[0].childNodes[0].nodeValue;
+                document.getElementById("demo").innerHTML = "Đơn vị của nhân viên 002: " + donvi;
+                break;
+            }
+        }
+    };
+    xhttp.open("GET", "danhsachnhanvien.xml");
+    xhttp.send();
+</script>
+</body>
+</html>
